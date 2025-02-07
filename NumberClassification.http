@@ -1,0 +1,6 @@
+@NumberClassification_HostAddress = http://localhost:5291
+
+GET {{NumberClassification_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
