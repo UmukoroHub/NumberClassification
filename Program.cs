@@ -1,14 +1,18 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Set the default port to 8080 for Render but allow local access
-var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-var localhostUrl = $"http://localhost:{port}";
 
+
+// Enable CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -26,16 +30,8 @@ builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
-// Allow local development access
-if (app.Environment.IsDevelopment())
-{
-    app.Urls.Add(localhostUrl);
-}
-else
-{
-    app.Urls.Add($"http://*:{port}"); // For Render
-}
 
+// Configure middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
