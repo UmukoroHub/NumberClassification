@@ -9,7 +9,7 @@ RUN dotnet restore NumberClassification/NumberClassification.csproj
 
 # Copy the rest of the application and build it
 COPY NumberClassification/. NumberClassification/
-WORKDIR /app/NumberClassification
+WORKDIR /app
 RUN dotnet publish -c Release -o out
 
 # Use the runtime image to run the app
